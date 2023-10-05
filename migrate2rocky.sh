@@ -1073,6 +1073,12 @@ EOF
         done
     fi
 
+    # 运行前换源
+        sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+            -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.aliyun.com/rockylinux|g' \
+            -i.bak \
+            /etc/yum.repos.d/[Rr]ocky*.repo
+
     # Distrosync
     infomsg $'Ensuring repos are enabled before the package swap\n'
     safednf -y --enableplugin=config_manager config-manager \
